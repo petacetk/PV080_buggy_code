@@ -8,6 +8,7 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
+    """Description"""
     version = flask.request.args.get("urllib_version")
     url = flask.request.args.get("url")
     return fetch_website(version, url)
@@ -30,19 +31,20 @@ def fetch_website(urllib_version, url):
     exec(f"import urllib{urllib_version} as urllib", globals())
     # Fetch and print the requested URL
 
-    try: 
-        http = urllib.PoolManager()
+    try:
+        http = urllib_version.PoolManager()
         r = http.request('GET', url)
     except:
         print('Exception')
 
-
 def load_yaml(filename):
+    """Description"""
     stream = open(filename)
     deserialized_data = yaml.load(stream, Loader=yaml.Loader) #deserializing data
     return deserialized_data
-    
+
 def authenticate(password):
+    """Description"""
     # Assert that the password is correct
     assert password == "Iloveyou", "Invalid password!"
     print("Successfully authenticated!")
